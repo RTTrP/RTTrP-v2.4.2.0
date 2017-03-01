@@ -1,4 +1,4 @@
-<h2>Real-Time Tracking Protocol<h2>
+<h2>Real-Time Tracking Protocol</h2>
 <br>
 Welcome to the **Real-Time Tracking Protocol (RTTrP)** repository!<br>
 <br>
