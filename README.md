@@ -13,4 +13,4 @@ Within this repository you will find stub code for Python and C++ for both RTTrP
 
 For further information, including packet definitions and protocol use cases, please visit the [Wiki](https://rttrp.github.io/RTTrP-Wiki/).<br>
 
-If you have any questions or concerns please use the [contact form](https://rttrp.github.io/RTTrP-Wiki/contact.html).
+If you have any questions or concerns please use the [contact form](https://rttrp.github.io/RTTrP-Wiki/Contact.html).
