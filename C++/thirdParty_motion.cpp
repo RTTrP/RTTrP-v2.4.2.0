@@ -81,7 +81,7 @@ Trackable::Trackable(vector<unsigned char> *data, uint16_t intSig, uint16_t fltS
 	data->erase(data->begin(), data->begin() + 1);
 
 	this->name.append(data->begin(), data->begin() + this->nameLen);
-	data->erase(data->begin(), data->begin() + sizeof(unsigned char)*this->nameLen);
+	data->erase(data->begin(), data->begin() + this->nameLen);
 
 	if (this->pkType == 0x51)
 	{
