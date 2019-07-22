@@ -325,7 +325,7 @@ QuatModule::QuatModule(vector<unsigned char> *data, uint16_t intSig, uint16_t fl
 		data->erase(data->begin(), data->begin() + 8);
 	}
 	
-	if (this->intSig = 0x4154)
+	if (this->intSig == 0x4154)
 	{
 		this->size = ntohs(this->size);
 		this->latency = ntohs(this->latency);
