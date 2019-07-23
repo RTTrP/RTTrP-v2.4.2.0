@@ -14,7 +14,7 @@
 
 #pragma once
 
-using namespace std;
+
 
 class ChannelBlock : Packet
 {
@@ -23,7 +23,7 @@ public:
 	uint8_t value;
 
 	ChannelBlock();
-	ChannelBlock(vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
+	ChannelBlock(std::vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
 	~ChannelBlock();
 
 	void printModule();
@@ -33,10 +33,10 @@ class Spot : public Packet
 {
 	public:
 		uint16_t size, spotID, spotOffset, channelStruct;
-		vector<ChannelBlock*> *chanBlocks;
+		std::vector<ChannelBlock*> *chanBlocks;
 
 		Spot();
-		Spot(vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
+		Spot(std::vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
 		~Spot();
 
 		void printModule();
@@ -46,10 +46,10 @@ class Universe : public Packet
 {
 	public:
 		uint16_t size, universeID, numSpots;
-		vector<Spot*> *spotList;
+		std::vector<Spot*> *spotList;
 
 		Universe();
-		Universe(vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
+		Universe(std::vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
 		~Universe();
 
 		void printModule();
@@ -63,10 +63,10 @@ class LightingOutput : public Packet
 		uint8_t action;
 		uint32_t holdTime;
 		uint16_t numUniverses;
-		vector<Universe*> *uniList;
+		std::vector<Universe*> *uniList;
 
 		LightingOutput();
-		LightingOutput(vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
+		LightingOutput(std::vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
 		~LightingOutput();
 
 		void printModule();
@@ -80,7 +80,7 @@ class LightingSync : public Packet
 		uint32_t deviceID, deviceSubID0, deviceSubID1, seqNum;
 
 		LightingSync();
-		LightingSync(vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
+		LightingSync(std::vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
 		~LightingSync();
 
 		void printModule();
