@@ -2,6 +2,8 @@
 
 #pragma once
 
+using namespace std;
+
 LightingOutput::LightingOutput()
 {
 	this->uniList = NULL;
