@@ -15,8 +15,6 @@
 
 #pragma once
 
-using namespace std;
-
 class Packet 
 {	
 	public:
@@ -24,7 +22,7 @@ class Packet
 		uint16_t intSig, fltSig;
 		
 		Packet();
-		Packet(uint16_t intSig, uint16_t fltSig, vector<unsigned char> *data);
+		Packet(uint16_t intSig, uint16_t fltSig, std::vector<unsigned char> *data);
 		Packet(const Packet &toCopy);
 		~Packet();
 };
@@ -34,12 +32,12 @@ class Trackable : public Packet
 	public:
 		uint16_t size;
 		uint8_t nameLen;
-		string name;
+		std::string name;
 		uint8_t numMods;
 		uint32_t timeStamp;
 
 		Trackable();
-		Trackable(vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
+		Trackable(std::vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
 		Trackable(const Trackable &toCopy);
 		~Trackable();
 
@@ -53,7 +51,7 @@ class CentroidMod : public Packet
 		double x, y, z;
 	
 	CentroidMod();
-	CentroidMod(vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
+	CentroidMod(std::vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
 	CentroidMod(const CentroidMod &toCopy);
 	~CentroidMod();
 
@@ -68,7 +66,7 @@ class LEDModule : public Packet
 		uint8_t index;
 
 		LEDModule();
-		LEDModule(vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
+		LEDModule(std::vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
 		LEDModule(const LEDModule &toCopy);
 		~LEDModule();
 
@@ -82,7 +80,7 @@ class QuatModule : public Packet
 		double Qx, Qy, Qz, Qw;
 
 		QuatModule();
-		QuatModule(vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
+		QuatModule(std::vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
 		QuatModule(const QuatModule &toCopy);
 		~QuatModule();
 
@@ -96,7 +94,7 @@ class EulerModule : public Packet
 		double R1, R2, R3;
 
 		EulerModule();
-		EulerModule(vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
+		EulerModule(std::vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
 		EulerModule(const EulerModule &toCopy);
 		~EulerModule();
 
@@ -112,7 +110,7 @@ class CentroidAccVelMod : public Packet
 		float velx, vely, velz;
 
 		CentroidAccVelMod();
-		CentroidAccVelMod(vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
+		CentroidAccVelMod(std::vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
 		CentroidAccVelMod(const CentroidAccVelMod &toCopy);
 		~CentroidAccVelMod();
 	
@@ -129,7 +127,7 @@ class LEDAccVelMod : public Packet
 		uint8_t index;
 
 		LEDAccVelMod();
-		LEDAccVelMod(vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
+		LEDAccVelMod(std::vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
 		LEDAccVelMod(const LEDAccVelMod &toCopy);
 		~LEDAccVelMod();
 
