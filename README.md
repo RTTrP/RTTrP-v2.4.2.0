@@ -12,6 +12,8 @@ Within this repository you will find stub code for Python and C++ for both RTTrP
 
 Python Reader is sample python code on how to read RTTrPM and RTTrPL packets.
 
+macOS branch is a user submitted fix to run the C++ code on macOS. As we can not verify this in house, we have created a new branch for this fix.
+
 For further information, including packet definitions and protocol use cases, please visit the [Wiki](https://rttrp.github.io/RTTrP-Wiki/).
 
 If you have any questions or concerns please use the [contact form](https://rttrp.github.io/RTTrP-Wiki/Contact.html).
