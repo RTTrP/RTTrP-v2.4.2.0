@@ -21,6 +21,7 @@ class RTTrPM():
 		self.ledMod = [] #0x06
 		self.centroidAccVelMod = None #0x20
 		self.LEDAccVelMod = [] #0x21
+		self.ZoneColMod = None #0x22
 
 	def printPacket(self):
 		self.rttrp_head.printHeader()
@@ -45,6 +46,9 @@ class RTTrPM():
 		if self.LEDAccVelMod:
 			for LED in self.LEDAccVelMod:
 				LED.printModule()
+
+		if self.ZoneColMod:
+			self.ZoneColMod.printModule()
 
 class Packet():
 	
@@ -305,3 +309,58 @@ class LEDAccVelMod(Packet):
 		print("Vel y			:	", self.vy)
 		print("Vel z			:	", self.vz)
 		print("Index			:	", self.index)
+
+class ZoneColMod(Packet):
+
+	def __init__(self, data, intSig, fltSig):
+		super().__init__(data, intSig, fltSig)
+
+		# Big Endian
+		if (hex(self.intSig) == "0x4154"):
+			endianOrder = "!"
+		# Little Endian
+		elif (hex(self.intSig) == "0x5441"):
+			endianOrder = ""
+
+		# Unpack size and number of zones
+		(self.size) = struct.unpack(f"{endianOrder}H", self.data[0:2])[0]
+		(self.numZones) = struct.unpack(f"{endianOrder}B", self.data[2:3])[0]
+
+		# Iterate through all zone sub modules, 
+		# create a list of dicts with all unpacked information
+		self.zones = []
+		self.data = self.data[3:]
+		for i in range(self.numZones):
+			currentZone = {}
+			currentZone['size'] = struct.unpack(f"{endianOrder}B", self.data[0:1])[0]
+			currentZone['length'] = struct.unpack(f"{endianOrder}B", self.data[1:2])[0]
+
+			numChars = "!"
+
+			for i in range(currentZone['length']):
+				numChars = numChars + "c"
+
+			(temp) = struct.unpack(numChars, self.data[2:currentZone['length']+2])
+
+			name = ""
+
+			for i in range(currentZone['length']):
+				name = name + (temp[i].decode("utf-8"))
+
+			currentZone['name'] = name
+			
+			self.zones.append(currentZone)
+
+			self.data = self.data[currentZone['length']+2:]
+
+	def printModule(self):
+		print("===============Zone Module================")
+		print("Packet Type		:	", hex(self.pkType))
+		print("Packet Size		:	", self.size)
+		print("Zone Modules		:	", self.numZones)
+
+		for zone in self.zones:
+			print(f"=============Zone Sub-Module==============")
+			print("Zone Size		:	", zone['size'])
+			print("Zone Length		:	", zone['length'])
+			print("Zone Name		:	", zone['name'])
