@@ -346,8 +346,8 @@ class ZoneColMod(Packet):
 
 			name = ""
 
-			for i in range(currentZone['length']):
-				name = name + (temp[i].decode("utf-8"))
+			for character in range(currentZone['length']):
+				name = name + (temp[character].decode("utf-8"))
 
 			currentZone['name'] = name
 			
@@ -362,7 +362,7 @@ class ZoneColMod(Packet):
 		print("Zone Modules		:	", self.numZones)
 
 		for zone in self.zones:
-			print(f"=============Zone Sub-Module==============")
+			print("=============Zone Sub-Module==============")
 			print("Zone Size		:	", zone['size'])
 			print("Zone Length		:	", zone['length'])
 			print("Zone Name		:	", zone['name'])
