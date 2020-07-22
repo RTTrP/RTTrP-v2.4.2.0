@@ -75,8 +75,11 @@ def openConnection(IP, PORT, isReading):
 							elif (module.data[0] == 33):
 								pkt.LEDAccVelMod.append(thirdParty_motion.LEDAccVelMod(module.data, module.intSig, module.fltSig))
 								module.data = pkt.LEDAccVelMod[len(pkt.LEDAccVelMod)-1].data
+							elif (module.data[0] == 34):
+								pkt.ZoneColMod = thirdParty_motion.ZoneColMod(module.data, module.intSig, module.fltSig)
+								module.data = pkt.ZoneColMod.data
 							else:
-								# unknwon packet type, da fuq is this
+								# unknown packet type, da fuq is this
 								exit()
 				elif (hex(pkt.fltHeader) == "0x4434" or hex(pkt.fltHeader) == "0x3444"): # TODO: Create the RTTrPL code that reads an RTTrPL packet
 					pkt = RTTrPL(pkt)

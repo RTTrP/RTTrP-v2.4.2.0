@@ -21,7 +21,7 @@ class MainWindow(QMainWindow):
 		self.setCentralWidget(self.centralWidget)
 
 		# Set window size
-		self.setFixedSize(1000, 1000)
+		self.setFixedSize(640, 480)
 
 		self.setWindowTitle("RTTrP Listener")
 	
