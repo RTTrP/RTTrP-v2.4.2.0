@@ -25,7 +25,9 @@ class RTTrPM():
 
 	def printPacket(self):
 		self.rttrp_head.printHeader()
-		self.trackable.printModule()
+
+		if self.trackable:
+			self.trackable.printModule()
 
 		if self.centroidMod:
 			self.centroidMod.printModule()
