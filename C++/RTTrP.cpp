@@ -91,6 +91,8 @@ RTTrPM::RTTrPM()
 	this->eulerMod = NULL;
 	this->cavMod = NULL;
 	this->lavMod = NULL;
+    this->zoneMod = NULL;
+    this->zoneSubMod = NULL;
 }
 
 RTTrPM::~RTTrPM()
@@ -100,6 +102,7 @@ RTTrPM::~RTTrPM()
 	delete(this->quatMod);
 	delete(this->eulerMod);
 	delete(this->cavMod);
+    delete(this->zoneMod);
 
 	if (this->ledMod != NULL)
 	{
@@ -138,6 +141,25 @@ RTTrPM::~RTTrPM()
 	}
 	else
 		delete(this->lavMod);
+
+    if (this->zoneSubMod != NULL)
+    {
+        if (this->zoneSubMod->size() > 0)
+        {
+            vector<ZoneSubMod*>::iterator zoneSubIter;
+
+            for (zoneSubIter = this->zoneSubMod->begin(); zoneSubIter < this->zoneSubMod->end(); zoneSubIter++)
+            {
+                delete((*zoneSubIter));
+            }
+
+            delete(this->zoneSubMod);
+        }
+        else
+            delete(this->zoneSubMod);
+    }
+    else
+        delete(this->zoneSubMod);
 }
 
 void RTTrPM::printPacket(void)
@@ -162,6 +184,12 @@ void RTTrPM::printPacket(void)
 
 	if (this->lavMod != NULL)
 		print_vector(this->lavMod);
+
+    if (this->zoneMod != NULL)
+        this->zoneMod->printModule();
+
+    if (this->zoneSubMod != NULL)
+        print_vector(this->zoneSubMod);
 }
 
 RTTrPL::RTTrPL()
