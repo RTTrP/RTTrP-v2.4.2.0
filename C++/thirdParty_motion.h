@@ -1,3 +1,25 @@
+/*MIT License
+
+#Copyright(c) 2020 CAST Group of Companies Inc
+
+#Permission is hereby granted, free of charge, to any person obtaining a copy
+#of this software and associated documentation files(the "Software"), to deal
+#in the Software without restriction, including without limitation the rights
+#to use, copy, modify, merge, publish, distribute, sublicense, and / or sell
+#copies of the Software, and to permit persons to whom the Software is
+#furnished to do so, subject to the following conditions :
+
+#The above copyright notice and this permission notice shall be included in all
+#copies or substantial portions of the Software.
+
+#THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE
+#AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+#SOFTWARE. */
+
 #ifndef THIRDPARTY_MOTION_H
 #define THIRDPARTY_MOTION_H
 
@@ -15,8 +37,6 @@
 
 #pragma once
 
-using namespace std;
-
 class Packet 
 {	
 	public:
@@ -24,7 +44,7 @@ class Packet
 		uint16_t intSig, fltSig;
 		
 		Packet();
-		Packet(uint16_t intSig, uint16_t fltSig, vector<unsigned char> *data);
+		Packet(uint16_t intSig, uint16_t fltSig, std::vector<unsigned char> *data);
 		Packet(const Packet &toCopy);
 		~Packet();
 };
@@ -34,12 +54,12 @@ class Trackable : public Packet
 	public:
 		uint16_t size;
 		uint8_t nameLen;
-		string name;
+		std::string name;
 		uint8_t numMods;
 		uint32_t timeStamp;
 
 		Trackable();
-		Trackable(vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
+		Trackable(std::vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
 		Trackable(const Trackable &toCopy);
 		~Trackable();
 
@@ -53,7 +73,7 @@ class CentroidMod : public Packet
 		double x, y, z;
 	
 	CentroidMod();
-	CentroidMod(vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
+	CentroidMod(std::vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
 	CentroidMod(const CentroidMod &toCopy);
 	~CentroidMod();
 
@@ -68,7 +88,7 @@ class LEDModule : public Packet
 		uint8_t index;
 
 		LEDModule();
-		LEDModule(vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
+		LEDModule(std::vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
 		LEDModule(const LEDModule &toCopy);
 		~LEDModule();
 
@@ -82,7 +102,7 @@ class QuatModule : public Packet
 		double Qx, Qy, Qz, Qw;
 
 		QuatModule();
-		QuatModule(vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
+		QuatModule(std::vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
 		QuatModule(const QuatModule &toCopy);
 		~QuatModule();
 
@@ -96,7 +116,7 @@ class EulerModule : public Packet
 		double R1, R2, R3;
 
 		EulerModule();
-		EulerModule(vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
+		EulerModule(std::vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
 		EulerModule(const EulerModule &toCopy);
 		~EulerModule();
 
@@ -112,7 +132,7 @@ class CentroidAccVelMod : public Packet
 		float velx, vely, velz;
 
 		CentroidAccVelMod();
-		CentroidAccVelMod(vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
+		CentroidAccVelMod(std::vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
 		CentroidAccVelMod(const CentroidAccVelMod &toCopy);
 		~CentroidAccVelMod();
 	
@@ -129,11 +149,39 @@ class LEDAccVelMod : public Packet
 		uint8_t index;
 
 		LEDAccVelMod();
-		LEDAccVelMod(vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
+		LEDAccVelMod(std::vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
 		LEDAccVelMod(const LEDAccVelMod &toCopy);
 		~LEDAccVelMod();
 
 		void printModule();
+};
+
+class ZoneMod : public Packet
+{
+public:
+    uint16_t size;
+    uint8_t numofZoneSubModules;
+    ZoneMod();
+    ZoneMod(std::vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
+    ZoneMod(const ZoneMod &toCopy);
+    ~ZoneMod();
+
+    void printModule();
+};
+
+class ZoneSubMod
+{
+public:
+    uint16_t intSig;
+    uint8_t size;
+    uint8_t zoneNameLength;
+    std::string zoneName;
+    ZoneSubMod();
+    ZoneSubMod(std::vector<unsigned char> *data, uint16_t intSig);
+    ZoneSubMod(const ZoneSubMod &toCopy);
+    ~ZoneSubMod();
+
+    void printModule();
 };
 
 #endif
