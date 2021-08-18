@@ -156,4 +156,32 @@ class LEDAccVelMod : public Packet
 		void printModule();
 };
 
+class ZoneMod : public Packet
+{
+public:
+    uint16_t size;
+    uint8_t numofZoneSubModules;
+    ZoneMod();
+    ZoneMod(std::vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
+    ZoneMod(const ZoneMod &toCopy);
+    ~ZoneMod();
+
+    void printModule();
+};
+
+class ZoneSubMod
+{
+public:
+    uint16_t intSig;
+    uint8_t size;
+    uint8_t zoneNameLength;
+    std::string zoneName;
+    ZoneSubMod();
+    ZoneSubMod(std::vector<unsigned char> *data, uint16_t intSig);
+    ZoneSubMod(const ZoneSubMod &toCopy);
+    ~ZoneSubMod();
+
+    void printModule();
+};
+
 #endif

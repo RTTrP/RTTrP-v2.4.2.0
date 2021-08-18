@@ -695,3 +695,111 @@ void LEDAccVelMod::printModule()
 	cout << "Z Acceleration: " << this->accz << endl;
 	cout << "========LED Acceleration/Velocity Module========" << endl;
 }
+
+ZoneMod::ZoneMod()
+{
+
+}
+
+void ZoneMod::ZoneMod(std::vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig)
+{
+    copy(data->begin(), data->begin() + 2, (unsigned char *)&this->size);
+    data->erase(data->begin(), data->begin() + 2);
+    copy(data->begin(), data->begin() + 1, (unsigned char*)&this->numofZoneSubModules);
+    data->erase(data->begin(), data->begin() + 1);
+   
+    if (this->intSig == 0x4154)
+    {
+        this->size = ntohs(this->size);
+        this->numofZoneSubModules = ntohs(this->numofZoneSubModules);
+    }
+}
+
+ZoneMod::ZoneMod(const ZoneMod &toCopy)
+{
+    size = toCopy.size;
+    numofZoneSubModules = toCopy.numofZoneSubModules;
+}
+
+ZoneMod::~ZoneMod()
+{
+
+}
+
+void ZoneMod::printModule()
+{
+    cout << "========Colliding Zones Module ========" << endl;
+
+    cout << "Module Size: " << this->size << endl;
+    cout << "Number of Zones colliding with the trackable  " << this->numofZoneSubModules << endl;
+
+    cout << "========Colliding Zones Module ========" << endl;
+
+}
+
+class ZoneMod : public Packet
+{
+public:
+    uint16_t size;
+    uint8_t numofZoneSubModules;
+    ZoneMod();
+    ZoneMod(std::vector<unsigned char> *data, uint16_t intSig, uint16_t fltSig);
+    ZoneMod(const ZoneMod &toCopy);
+    ~ZoneMod();
+
+    void printModule();
+};
+
+ZoneSubMod::ZoneSubMod()
+{
+
+}
+
+ZoneSubMod::ZoneSubMod(std::vector<unsigned char> *data, uint16_t intSig)
+{
+    copy(data->begin(), data->begin() + 2, (unsigned char *)&this->size);
+    data->erase(data->begin(), data->begin() + 2);
+    copy(data->begin(), data->begin() + 1, (unsigned char*)&this->zoneNameLength);
+    data->erase(data->begin(), data->begin() + 1);
+    if (this->intSig == 0x4154)
+    {
+        this->size = ntohs(this->size);
+        this->zoneNameLength = ntohs(this->zoneNameLength);
+    }
+    copy(data->begin(), data->begin() + this->zoneNameLength, (unsigned char*)&this->zoneName);
+    data->erase(data->begin(), data->begin() + this->zoneNameLength);
+}
+
+ZoneSubMod::ZoneSubMod(const ZoneSubMod &toCopy)
+{
+    intSig = toCopy.intSig;
+    size = toCopy.size;
+    zoneNameLength = toCopy.zoneNameLength;
+    zoneName = toCopy.zoneName;
+}
+
+void ZoneSubMod::printModule()
+{
+    cout << "========Colliding Zones Sub Module ========" << endl;
+
+    cout << "Zone Sub Module Size: " << this->size << endl;
+    cout << "Colliding Zone Name length " << this->zoneNameLength << endl;
+    cout << "Colliding Zone Name  " << this->zoneName << endl;
+
+    cout << "========Colliding Zones Module ========" << endl;
+}
+
+class ZoneSubMod
+{
+public:
+    uint16_t intSig;
+    uint8_t size;
+    uint8_t zoneNameLength;
+    std::string zoneName;
+    ZoneSubMod();
+    ZoneSubMod(std::vector<unsigned char> *data, uint16_t intSig);
+    ZoneSubMod(const ZoneSubMod &toCopy);
+    ~ZoneSubMod();
+
+    void printModule();
+};
