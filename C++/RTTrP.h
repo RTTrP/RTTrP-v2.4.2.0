@@ -45,7 +45,9 @@ class RTTrPM
 		QuatModule *quatMod;
 		EulerModule *eulerMod;
 		CentroidAccVelMod *cavMod;
+                ZoneMod *zoneMod;
 		vector<LEDAccVelMod*> *lavMod;
+                vector<ZoneSubMod*> *zoneSubMod;
 		vector<unsigned char> *data;
 		vector<uint8_t> pkType;
 
